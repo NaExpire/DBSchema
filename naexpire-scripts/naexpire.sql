@@ -136,7 +136,7 @@ DELIMITER ;;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;;
 /*!50003 SET @saved_time_zone      = @@time_zone */ ;;
 /*!50003 SET time_zone             = 'SYSTEM' */ ;;
-/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `reset-pickups` ON SCHEDULE EVERY 1 DAY STARTS '2017-03-28 22:10:38' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE users SET lastname = firstname */ ;;
+/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `reset-pickups` ON SCHEDULE EVERY 1 DAY STARTS '2017-03-29 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE users SET lastname = firstname */ ;;
 /*!50003 SET time_zone             = @saved_time_zone */ ;;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;;
