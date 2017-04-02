@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS `menuitems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `menuitems` (
-  `id` int(16) NOT NULL,
+  `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `description` varchar(128) DEFAULT NULL,
   `restaurantid` int(16) NOT NULL,
@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `restaurants`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `restaurants` (
-  `id` int(16) NOT NULL,
+  `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `description` varchar(256) DEFAULT NULL,
   `registration-date` date NOT NULL,
