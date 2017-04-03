@@ -108,7 +108,7 @@ CREATE TABLE `users` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `type` enum('customer','restaurant','admin') NOT NULL DEFAULT 'customer',
   `email` varchar(64) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(128) NOT NULL,
   `firstname` varchar(32) DEFAULT NULL,
   `lastname` varchar(32) DEFAULT NULL,
   `registration-date` date NOT NULL,
