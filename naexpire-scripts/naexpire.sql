@@ -26,11 +26,11 @@ DROP TABLE IF EXISTS `cuisines`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cuisines` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS `menuitems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `menuitems` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `description` varchar(128) DEFAULT NULL,
   `restaurantid` int(16) NOT NULL,
@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `restaurants`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `restaurants` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `description` varchar(256) DEFAULT NULL,
   `registration-date` date NOT NULL,
@@ -105,7 +105,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `type` enum('customer','restaurant','admin') NOT NULL DEFAULT 'customer',
   `email` varchar(64) NOT NULL,
   `password` varchar(128) NOT NULL,
@@ -117,8 +117,14 @@ CREATE TABLE `users` (
   `card-expiration` int(5) DEFAULT NULL,
   `card-zip` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `sessions`;
+CREATE TABLE `sessions` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `session-content` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping events for database 'naexpire'
