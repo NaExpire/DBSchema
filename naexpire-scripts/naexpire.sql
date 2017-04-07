@@ -116,7 +116,8 @@ CREATE TABLE `users` (
   `card-number` int(20) DEFAULT NULL,
   `card-expiration` int(5) DEFAULT NULL,
   `card-zip` int(5) DEFAULT NULL,
-  `confirmed` int(1) DEFAULT 0
+  `confirmed` int(1) DEFAULT 0,
+  `confirmation-code` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
