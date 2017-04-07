@@ -123,7 +123,8 @@ CREATE TABLE `users` (
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
-  `session-content` varchar(128) NOT NULL
+  `session-content` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
