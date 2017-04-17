@@ -183,11 +183,25 @@ CREATE TABLE `users` (
   `card-number` int(20) DEFAULT NULL,
   `card-expiration` int(5) DEFAULT NULL,
   `card-zip` int(5) DEFAULT NULL,
+<<<<<<< HEAD
   `confirmed` int(1) DEFAULT '0',
   `confirmation-code` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+=======
+  `confirmed` int(1) DEFAULT 0,
+  `confirmation-code` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+>>>>>>> origin/master
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `sessions`;
+CREATE TABLE `sessions` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `session-content` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping events for database 'naexpire'
