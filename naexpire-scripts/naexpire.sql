@@ -1,3 +1,4 @@
+DROP DATABASE IF NOT EXISTS `naexpire`;
 CREATE DATABASE  IF NOT EXISTS `naexpire` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `naexpire`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
@@ -18,88 +19,178 @@ USE `naexpire`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `creditcards`
+-- Table structure for table `creditcards`
 --
 
-LOCK TABLES `creditcards` WRITE;
-/*!40000 ALTER TABLE `creditcards` DISABLE KEYS */;
-/*!40000 ALTER TABLE `creditcards` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `creditcards`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `creditcards` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `number` varchar(90) NOT NULL,
+  `expiration` int(11) NOT NULL,
+  `securitycode` int(11) NOT NULL,
+  `zip` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cuisines`
+-- Table structure for table `cuisines`
 --
 
-LOCK TABLES `cuisines` WRITE;
-/*!40000 ALTER TABLE `cuisines` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cuisines` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `cuisines`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cuisines` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `menuitems`
+-- Table structure for table `menuitems`
 --
 
-LOCK TABLES `menuitems` WRITE;
-/*!40000 ALTER TABLE `menuitems` DISABLE KEYS */;
-/*!40000 ALTER TABLE `menuitems` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `menuitems`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `menuitems` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `description` varchar(128) DEFAULT NULL,
+  `restaurantid` int(16) NOT NULL,
+  `price` decimal(5,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_restaurantid` (`restaurantid`),
+  CONSTRAINT `FK_restaurantid` FOREIGN KEY (`restaurantid`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `purchases`
+-- Table structure for table `purchases`
 --
 
-LOCK TABLES `purchases` WRITE;
-/*!40000 ALTER TABLE `purchases` DISABLE KEYS */;
-INSERT INTO `purchases` VALUES (1,2,1,0,1,5,'2017-04-12',0),(2,1,1,0,1,5,'2017-04-12',0),(3,1,1,0,1,5,'2017-04-13',0),(4,1,1,0,1,5,'2017-04-14',0),(5,2,1,0,1,5,'2017-04-14',0),(6,1,1,0,1,5,'2017-04-14',0),(7,1,1,0,1,5,'2017-04-15',0),(8,2,1,0,1,5,'2017-04-15',0),(9,1,1,0,1,5,'2017-04-15',0),(10,2,1,0,1,5,'2017-04-15',0),(11,1,1,0,1,5,'2017-04-15',0),(12,2,1,0,1,5,'2017-04-16',0);
-/*!40000 ALTER TABLE `purchases` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `purchases`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `purchases` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `restaurantid` int(11) NOT NULL,
+  `ccid` int(11) NOT NULL,
+  `items` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `date` date NOT NULL,
+  `completed` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `restaurantcuisinejoin`
+-- Table structure for table `restaurantcuisinejoin`
 --
 
-LOCK TABLES `restaurantcuisinejoin` WRITE;
-/*!40000 ALTER TABLE `restaurantcuisinejoin` DISABLE KEYS */;
-/*!40000 ALTER TABLE `restaurantcuisinejoin` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `restaurantcuisinejoin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `restaurantcuisinejoin` (
+  `restaurantid` int(16) NOT NULL,
+  `cuisineid` int(16) NOT NULL,
+  PRIMARY KEY (`restaurantid`,`cuisineid`),
+  KEY `FK_rcj_cuisineid` (`cuisineid`),
+  CONSTRAINT `FK_rcj_cuisineid` FOREIGN KEY (`cuisineid`) REFERENCES `cuisines` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_rcj_restaurantid` FOREIGN KEY (`restaurantid`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `restaurants`
+-- Table structure for table `restaurants`
 --
 
-LOCK TABLES `restaurants` WRITE;
-/*!40000 ALTER TABLE `restaurants` DISABLE KEYS */;
-INSERT INTO `restaurants` VALUES (1,'The Book Bar','foobar','2017-04-16','123 Sesame Street\n','Phoenix','Arizona',85282,1,NULL,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `restaurants` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `restaurants`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `restaurants` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `description` varchar(256) DEFAULT NULL,
+  `registration-date` date NOT NULL,
+  `address` varchar(64) DEFAULT NULL,
+  `city` varchar(32) DEFAULT NULL,
+  `state` varchar(32) DEFAULT NULL,
+  `zip` int(5) DEFAULT NULL,
+  `ownerid` int(16) DEFAULT NULL,
+  `items` varchar(1024) DEFAULT NULL,
+  `pickup-tme` varchar(45) DEFAULT NULL,
+  `price` decimal(5,2) DEFAULT NULL,
+  `pickup-max` int(3) DEFAULT NULL,
+  `pickup-remaining` int(3) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_ownerid` (`ownerid`),
+  CONSTRAINT `FK_ownerid` FOREIGN KEY (`ownerid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `scores`
+-- Table structure for table `scores`
 --
 
-LOCK TABLES `scores` WRITE;
-/*!40000 ALTER TABLE `scores` DISABLE KEYS */;
-/*!40000 ALTER TABLE `scores` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `scores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `scores` (
+  `purchaseid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `restaurantid` int(11) NOT NULL,
+  `score` int(11) NOT NULL,
+  `review` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`purchaseid`,`userid`,`restaurantid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `sessions`
+-- Table structure for table `sessions`
 --
 
-LOCK TABLES `sessions` WRITE;
-/*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sessions` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `session-content` varchar(128) NOT NULL,
+  `user-id` int(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Table structure for table `users`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'restaurant','foo@gmail.com','$2a$14$OTndJ2mD7rkkG/6Db1OmrOzMhbXGk13OM0Hj.7bCgGkOpnOho2hgu','Steve','King','2017-04-16',NULL,NULL,NULL,NULL,0,22121479),(2,'customer','foob@gmail.com','$2a$14$AcYdNsDtGTcJ5wKz1Oup5ObfIzeyt.MjIxp7OUGTEsEKSkqzFC6R.','Steve','King','2017-04-16',NULL,NULL,NULL,NULL,0,24701795);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `type` enum('customer','restaurant','admin') NOT NULL DEFAULT 'customer',
+  `email` varchar(64) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `firstname` varchar(32) DEFAULT NULL,
+  `lastname` varchar(32) DEFAULT NULL,
+  `registration-date` date NOT NULL,
+  `last-login` datetime DEFAULT NULL,
+  `card-number` int(20) DEFAULT NULL,
+  `card-expiration` int(5) DEFAULT NULL,
+  `card-zip` int(5) DEFAULT NULL,
+  `confirmed` int(1) DEFAULT '0',
+  `confirmation-code` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping events for database 'naexpire'
@@ -139,4 +230,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-16 18:19:27
+-- Dump completed on 2017-04-18 22:35:29
