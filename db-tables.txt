@@ -1,0 +1,115 @@
+calendar - includes dates needed for joins to create charts on stats page
+	id - primary key
+	caldate - a date
+carts - user carts for customers
+	id - primary key
+carts-deals - deal-cart join table
+	id - primary key
+	cart-id - cart foreign key (fk)
+	deal-id - deal fk
+carts-menuitems - menu item-cart join table
+	id - primary key
+	cart-id - cart fk
+	menuitem-id - menu item fk
+	quantity - # in cart
+contact - content for 'contact us' panel on splash page (modify but do not add)
+	id - primary key
+	form - email or phone
+	content - contact info
+creditcards - credit card info for users
+	id - primary key
+	userid - user fk
+	number - card #
+	expiration - expiration date
+	securitycode - card security code
+	zip - card zip code
+cuisines - different cuisines a restaurant can belong to
+	id - primary key
+	name - name of cuisine
+deals - deals that a customer can purchase
+	id - primary key
+	meal-id - what meal it is available for
+	deal-price - price of deal
+	quantity - # available
+	restaurant-id - restaurant fk
+menuitems - items offered by restaurants
+	id - primary key
+	name - name of menu item
+	description - a brief description
+	restaurantid - restaurant fk
+	price - price of item
+	type - what section of menu ie app, entree, dessert
+purchases - customer purchases
+	id - primary key
+	userid - user fk
+	restaurantid - restaurant fk
+	ccid - credit card fk
+	items - items purchased
+	price - total cost
+	date - date purchased
+	completed - whether the transaction was completed and food picked up
+restaurantcuisinejoin - join table for restaurants and cuisines
+	restaurantid - restaurant fk
+	cuisineid - cuisine fk
+restaurants - restaurants
+	id - primary key
+	name - name of restaurant
+	description - brief description
+	registration-date - date signed up for app
+	address - address of restaurant
+	city - city located in
+	state - state located in
+	zip - zip located in
+	ownerid - fk of user who administers the restaurant's app acct
+	items - items they sell
+	pickup-time - when items can be picked up
+	price - price of their grab bag
+	pickup-max - max bags available per day
+	pickup-remaining - bags remaining
+	phone-number - restaurant phone number for contact
+reviews - reviews of restaurants by customers
+	id - primary key
+	transaction-id - fk of transaction
+	user-id - user fk
+	restaurant-id - restaurant fk
+	score - score given 0 to 5
+	review-body - body of the review
+sessions - user login sessions
+	id - primary key
+	session-content - content for app
+	user-id - user fk of user session belongs to
+splash - content for splash page (modify but do not add)
+	id - primary key
+	columnname - either sustainabile dev or about us
+	content - what goes in that panel on the splash page
+transactions - same as purchases
+	id - primary key
+	user-id - fk of user purchasing
+	restaurant-id - fk of restaurant purchased from
+	status - how far into the process the transaction is
+transactions-deals - join table between transactions and deals
+	id - primary key
+	transaction-id - fk of transaction
+	deal-id - fk of deal
+transactions-menuitems - join table b/t transactions and menu items
+	id - primary key
+	transaction-id - fk of transaction
+	menuitem-id - fk of menu item
+	quantity - # of that menu item for that transaction
+users - admin, restaurant owner, or customer users
+	id - primary key
+	type - admin, customer, or restaurant (owner)
+	email - email of user for login and contact
+	password - password for login (ecrypted)
+	firstname - first name
+	lastname - last name
+	registration-date - date registered for app
+	last-login - last time logged in
+	card-number - (deprecated)
+	card-expiration - (deprecated)
+	card-zip - (deprecated)
+	confirmed - user has confirmed acct with code from email
+	confirmation-code - code generated at registration to authenticate email
+	cart-id - id of cart associated with user
+
+* all foreign keys on join tables refer to the primary key of their associated table

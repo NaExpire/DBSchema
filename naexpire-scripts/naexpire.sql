@@ -1,4 +1,6 @@
--- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `naexpire` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `naexpire`;
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 138.197.33.88    Database: naexpire
 -- ------------------------------------------------------
@@ -16,6 +18,20 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `calendar`
+--
+
+DROP TABLE IF EXISTS `calendar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `calendar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `caldate` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8088 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `carts`
 --
 
@@ -24,14 +40,8 @@ DROP TABLE IF EXISTS `carts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `carts` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
-  `user-id` int(32) NOT NULL,
-  `restaurant-id` int(32) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_carts_users_user-id_idx` (`user-id`),
-  KEY `fk_carts_restaurants_restaurant-id_idx` (`restaurant-id`),
-  CONSTRAINT `fk_carts_restaurants_restaurant-id` FOREIGN KEY (`restaurant-id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_carts_users_user-id` FOREIGN KEY (`user-id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,7 +60,7 @@ CREATE TABLE `carts-deals` (
   KEY `fk_carts-deals_deals_deal-id_idx` (`deal-id`),
   CONSTRAINT `fk_carts-deals_carts_cart-id` FOREIGN KEY (`cart-id`) REFERENCES `carts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_carts-deals_deals_deal-id` FOREIGN KEY (`deal-id`) REFERENCES `deals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,7 +71,7 @@ DROP TABLE IF EXISTS `carts-menuitems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `carts-menuitems` (
-  `id` int(32) NOT NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `cart-id` int(32) NOT NULL,
   `menuitem-id` int(32) NOT NULL,
   `quantity` int(32) NOT NULL,
@@ -70,7 +80,22 @@ CREATE TABLE `carts-menuitems` (
   KEY `fk_carts-menuitems_menuitems_menuitem-id_idx` (`menuitem-id`),
   CONSTRAINT `fk_carts-menuitems_carts_cart-id` FOREIGN KEY (`cart-id`) REFERENCES `carts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_carts-menuitems_menuitems_menuitem-id` FOREIGN KEY (`menuitem-id`) REFERENCES `menuitems` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `contact`
+--
+
+DROP TABLE IF EXISTS `contact`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contact` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `form` varchar(45) DEFAULT NULL,
+  `content` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,9 +147,9 @@ CREATE TABLE `deals` (
   PRIMARY KEY (`id`),
   KEY `fk_deals_menuitems_meal-id_idx` (`meal-id`),
   KEY `fk_deals_restaurants_restaurants-id_idx` (`restaurant-id`),
-  CONSTRAINT `fk_deals_menuitems_meal-id` FOREIGN KEY (`meal-id`) REFERENCES `menuitems` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_deals_menuitems_meal-id` FOREIGN KEY (`meal-id`) REFERENCES `menuitems` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_deals_restaurants_restaurants-id` FOREIGN KEY (`restaurant-id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +169,7 @@ CREATE TABLE `menuitems` (
   PRIMARY KEY (`id`),
   KEY `FK_restaurantid` (`restaurantid`),
   CONSTRAINT `FK_restaurantid` FOREIGN KEY (`restaurantid`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,24 +235,25 @@ CREATE TABLE `restaurants` (
   PRIMARY KEY (`id`),
   KEY `FK_ownerid` (`ownerid`),
   CONSTRAINT `FK_ownerid` FOREIGN KEY (`ownerid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `scores`
+-- Table structure for table `reviews`
 --
 
-DROP TABLE IF EXISTS `scores`;
+DROP TABLE IF EXISTS `reviews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `scores` (
-  `purchaseid` int(11) NOT NULL,
-  `userid` int(11) NOT NULL,
-  `restaurantid` int(11) NOT NULL,
+CREATE TABLE `reviews` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `transaction-id` int(32) NOT NULL,
+  `user-id` int(32) NOT NULL,
+  `restaurant-id` int(32) NOT NULL,
   `score` int(11) NOT NULL,
-  `review` varchar(1024) DEFAULT NULL,
-  PRIMARY KEY (`purchaseid`,`userid`,`restaurantid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `review-body` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,7 +268,22 @@ CREATE TABLE `sessions` (
   `session-content` varchar(128) NOT NULL,
   `user-id` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `splash`
+--
+
+DROP TABLE IF EXISTS `splash`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `splash` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `columnname` varchar(45) DEFAULT NULL,
+  `content` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +294,7 @@ DROP TABLE IF EXISTS `transactions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transactions` (
-  `id` int(32) NOT NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `user-id` int(32) NOT NULL,
   `restaurant-id` int(32) NOT NULL,
   `status` enum('open','cancelled','rejected','accepted','fulfilled') NOT NULL DEFAULT 'open',
@@ -262,7 +303,7 @@ CREATE TABLE `transactions` (
   KEY `fk_transactions_users_user-id_idx` (`user-id`),
   CONSTRAINT `fk_transactions_restaurants_restaurant-id` FOREIGN KEY (`restaurant-id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_transactions_users_user-id` FOREIGN KEY (`user-id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,14 +314,14 @@ DROP TABLE IF EXISTS `transactions-deals`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transactions-deals` (
-  `id` int(32) NOT NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `transaction-id` int(32) NOT NULL,
   `deal-id` int(32) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_transaction-deals_transactions_transaction-id_idx` (`transaction-id`),
-  KEY `fk_transaction-deals_deals_deal-id_idx` (`deal-id`),
-  CONSTRAINT `fk_transaction-deals_deals_deal-id` FOREIGN KEY (`deal-id`) REFERENCES `deals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_transaction-deals_transactions_transaction-id` FOREIGN KEY (`transaction-id`) REFERENCES `transactions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_transactions-deals_transactions_transaction-id_idx` (`transaction-id`),
+  KEY `fk_transactions-deals_deals_deal-id_idx` (`deal-id`),
+  CONSTRAINT `fk_transactions-deals_deals_deal-id` FOREIGN KEY (`deal-id`) REFERENCES `deals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_transactions-deals_transactions_transaction-id` FOREIGN KEY (`transaction-id`) REFERENCES `transactions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -292,14 +333,14 @@ DROP TABLE IF EXISTS `transactions-menuitems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transactions-menuitems` (
-  `id` int(32) NOT NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `transaction-id` int(32) NOT NULL,
   `menuitem-id` int(32) NOT NULL,
   `quantity` int(32) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_transactions-menuitems_transactions_transaction-id_idx` (`transaction-id`),
   KEY `fk_transactions-menuitems_menuitems_menuitem-id_idx` (`menuitem-id`),
-  CONSTRAINT `fk_transactions-menuitems_menuitems_menuitem-id` FOREIGN KEY (`menuitem-id`) REFERENCES `transactions-menuitems` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_transactions-menuitems_menuitems_menuitem-id` FOREIGN KEY (`menuitem-id`) REFERENCES `menuitems` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_transactions-menuitems_transactions_transaction-id` FOREIGN KEY (`transaction-id`) REFERENCES `transactions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -325,9 +366,41 @@ CREATE TABLE `users` (
   `card-zip` int(5) DEFAULT NULL,
   `confirmed` int(1) DEFAULT '0',
   `confirmation-code` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+  `cart-id` int(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_users_carts_cart-id_idx` (`cart-id`),
+  CONSTRAINT `fk_users_carts_cart-id` FOREIGN KEY (`cart-id`) REFERENCES `carts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping events for database 'naexpire'
+--
+/*!50106 SET @save_time_zone= @@TIME_ZONE */ ;
+/*!50106 DROP EVENT IF EXISTS `reset-pickups` */;
+DELIMITER ;;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;;
+/*!50003 SET character_set_client  = utf8 */ ;;
+/*!50003 SET character_set_results = utf8 */ ;;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;;
+/*!50003 SET @saved_time_zone      = @@time_zone */ ;;
+/*!50003 SET time_zone             = 'SYSTEM' */ ;;
+/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `reset-pickups` ON SCHEDULE EVERY 1 DAY STARTS '2017-03-29 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE users SET lastname = firstname */ ;;
+/*!50003 SET time_zone             = @saved_time_zone */ ;;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;;
+/*!50003 SET character_set_results = @saved_cs_results */ ;;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;;
+DELIMITER ;
+/*!50106 SET TIME_ZONE= @save_time_zone */ ;
+
+--
+-- Dumping routines for database 'naexpire'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -338,4 +411,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-21 16:46:11
+-- Dump completed on 2017-05-06  3:02:49
