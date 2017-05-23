@@ -28,7 +28,7 @@ CREATE TABLE `calendar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `caldate` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8088 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS `carts`;
 CREATE TABLE `carts` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,7 +60,7 @@ CREATE TABLE `carts-deals` (
   KEY `fk_carts-deals_deals_deal-id_idx` (`deal-id`),
   CONSTRAINT `fk_carts-deals_carts_cart-id` FOREIGN KEY (`cart-id`) REFERENCES `carts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_carts-deals_deals_deal-id` FOREIGN KEY (`deal-id`) REFERENCES `deals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,7 @@ CREATE TABLE `carts-menuitems` (
   KEY `fk_carts-menuitems_menuitems_menuitem-id_idx` (`menuitem-id`),
   CONSTRAINT `fk_carts-menuitems_carts_cart-id` FOREIGN KEY (`cart-id`) REFERENCES `carts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_carts-menuitems_menuitems_menuitem-id` FOREIGN KEY (`menuitem-id`) REFERENCES `menuitems` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `contact` (
   `form` varchar(45) DEFAULT NULL,
   `content` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +149,7 @@ CREATE TABLE `deals` (
   KEY `fk_deals_restaurants_restaurants-id_idx` (`restaurant-id`),
   CONSTRAINT `fk_deals_menuitems_meal-id` FOREIGN KEY (`meal-id`) REFERENCES `menuitems` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_deals_restaurants_restaurants-id` FOREIGN KEY (`restaurant-id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,7 +169,7 @@ CREATE TABLE `menuitems` (
   PRIMARY KEY (`id`),
   KEY `FK_restaurantid` (`restaurantid`),
   CONSTRAINT `FK_restaurantid` FOREIGN KEY (`restaurantid`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,7 +189,7 @@ CREATE TABLE `purchases` (
   `date` date NOT NULL,
   `completed` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,7 +235,7 @@ CREATE TABLE `restaurants` (
   PRIMARY KEY (`id`),
   KEY `FK_ownerid` (`ownerid`),
   CONSTRAINT `FK_ownerid` FOREIGN KEY (`ownerid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +253,7 @@ CREATE TABLE `reviews` (
   `score` int(11) NOT NULL,
   `review-body` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,7 +268,7 @@ CREATE TABLE `sessions` (
   `session-content` varchar(128) NOT NULL,
   `user-id` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -283,7 +283,7 @@ CREATE TABLE `splash` (
   `columnname` varchar(45) DEFAULT NULL,
   `content` longtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -303,7 +303,7 @@ CREATE TABLE `transactions` (
   KEY `fk_transactions_users_user-id_idx` (`user-id`),
   CONSTRAINT `fk_transactions_restaurants_restaurant-id` FOREIGN KEY (`restaurant-id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_transactions_users_user-id` FOREIGN KEY (`user-id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,7 +370,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `fk_users_carts_cart-id_idx` (`cart-id`),
   CONSTRAINT `fk_users_carts_cart-id` FOREIGN KEY (`cart-id`) REFERENCES `carts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
